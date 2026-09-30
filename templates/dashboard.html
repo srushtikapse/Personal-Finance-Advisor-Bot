@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Welcome, {{ user.username }}!</h2>
+
+<div class="grid">
+    <div class="stat-box">
+        <h3>Total Income</h3>
+        <p style="color: #27ae60;">${{ "%.2f"|format(total_income) }}</p>
+    </div>
+    <div class="stat-box">
+        <h3>Total Expenses</h3>
+        <p style="color: #e74c3c;">${{ "%.2f"|format(total_expense) }}</p>
+    </div>
+    <div class="stat-box">
+        <h3>Net Savings</h3>
+        <p style="color: #2980b9;">${{ "%.2f"|format(net_savings) }}</p>
+    </div>
+</div>
+
+<div class="card ai-card" style="margin-top: 25px;">
+    <h3>🤖 AI Financial Insights & Recommendations</h3>
+    <div style="white-space: pre-line;">{{ ai_advice }}</div>
+</div>
+
+<div class="grid">
+    <div class="card">
+        <h3>Income History</h3>
+        <ul>
+            {% for inc in incomes %}
+                <li>{{ inc.source }}: ${{ "%.2f"|format(inc.amount) }} ({{ inc.date.strftime('%Y-%m-%d') }})</li>
+            {% else %}
+                <li>No income records added yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="card">
+        <h3>Expense History</h3>
+        <ul>
+            {% for exp in expenses %}
+                <li><strong>{{ exp.category }}</strong>: ${{ "%.2f"|format(exp.amount) }} - {{ exp.description }} ({{ exp.date.strftime('%Y-%m-%d') }})</li>
+            {% else %}
+                <li>No expense records added yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
